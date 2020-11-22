@@ -4,7 +4,11 @@ import {CourseResourceService} from '../../../../shared/services/course.resource
 import {Observable, of} from 'rxjs';
 import {HomeAllSuccess, HomeGetAll, HomeGetAllError} from '../actions/home.actions';
 import {catchError, concatMap, switchMap} from 'rxjs/operators';
+import {Injectable} from '@angular/core';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class HomeEffects {
   constructor(
     private actions$: Actions,
@@ -17,7 +21,7 @@ export class HomeEffects {
   getAll$ = createEffect( () => <Observable<any>> this.actions$.pipe(
     ofType(HomeGetAll),
     switchMap((data) => this.resource.getAllCourses().pipe(
-      concatMap( (items) => of(HomeAllSuccess({items}))),
+      concatMap( (items) => of(HomeAllSuccess())),
       catchError( error => of(HomeGetAllError(error)))
     ))
   ));

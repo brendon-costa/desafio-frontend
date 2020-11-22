@@ -8,9 +8,8 @@ export enum HomeActionsEnum {
 
 }
 
-export const HomeGetAll = createAction(HomeActionsEnum.GetAll,
-  props<any>());
-export const HomeAllSuccess = createAction(HomeActionsEnum.GetAllSuccess,
-  props<any>());
+export const HomeGetAll = createAction(HomeActionsEnum.GetAll);
+export const HomeAllSuccess = createAction(HomeActionsEnum.GetAllSuccess);
 export const HomeGetAllError = createAction(HomeActionsEnum.GetAllError,
-  props<any>());
+  props<{error: string}>()
+);

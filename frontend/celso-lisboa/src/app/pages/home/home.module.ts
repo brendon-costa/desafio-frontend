@@ -10,6 +10,11 @@ import {ClInputModule} from '../../../../projects/ui/src/lib/form-controls/cl-in
 import {ClButtonModule} from '../../../../projects/ui/src/lib/layout/button/cl-button.module';
 import {ClSelectModule} from '../../../../projects/ui/src/lib/form-controls/cl-select/cl-select.module';
 import {ReactiveFormsModule} from '@angular/forms';
+import {StoreModule} from '@ngrx/store';
+import {HOME_STATE_NAME} from './+state/home.states';
+import {HomeReducer} from './+state/reducers/home.reducers';
+import {EffectsModule} from '@ngrx/effects';
+import {HomeEffects} from './+state/effects/hom.effects';
 
 
 @NgModule({
@@ -24,7 +29,10 @@ import {ReactiveFormsModule} from '@angular/forms';
     ClSelectModule,
     ClInputModule,
     ClButtonModule,
-    BackgroundModule
-  ]
+    BackgroundModule,
+    StoreModule.forFeature(HOME_STATE_NAME, HomeReducer ),
+    EffectsModule.forFeature([ HomeEffects ]),
+  ],
+  providers: []
 })
 export class HomeModule { }

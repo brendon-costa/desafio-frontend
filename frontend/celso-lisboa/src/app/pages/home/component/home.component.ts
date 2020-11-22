@@ -6,6 +6,7 @@ import {SelectListModel} from '../../../../../projects/ui/src/lib/form-controls/
 import {Util} from '../../../shared/util/util';
 import {ErrorMessageEnum} from '../../../shared/enum/error-message.enum';
 import {switchMap} from 'rxjs/operators';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-home',
@@ -26,11 +27,12 @@ export class HomeComponent implements OnInit {
   constructor(
     public courseFacadeService: CourseFacadeService,
     private fb: FormBuilder,
+    private store: Store<any>,
   ) { }
 
   ngOnInit(): void {
     this.courseFacadeService.getAllCourses().subscribe((courses: CoursesModel) => {
-      this.courses = courses.cursos;
+      // this.courses = courses.cursos;
       console.log(courses);
     });
     this.buildResourceForm();

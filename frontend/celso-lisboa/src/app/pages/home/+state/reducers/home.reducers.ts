@@ -1,4 +1,4 @@
-import {HomeState, initialHomeState} from '../selectors/home.selectors';
+import {HomeState, initialHomeState} from '../home.states';
 import {Action, createReducer, on} from '@ngrx/store';
 import {HomeAllSuccess, HomeGetAll, HomeGetAllError} from '../actions/home.actions';
 
@@ -12,9 +12,9 @@ const success = (state): any => ({...state, lastRequestStatus: 'success'});
 
 const _HomeReducer = createReducer(
   initialHomeState,
-  on(HomeGetAll, (state) => loading(state)),
-  on(HomeAllSuccess, (state, { items}) => ({ ...success(state), items })),
-  on(HomeGetAllError, (state, { error }) => setErrorState(state, error)),
+  on(HomeGetAll, (state) => loading(state.cursos)),
+  on(HomeAllSuccess, (state, items ) => ({ ...success(state), items })),
+  on(HomeGetAllError, (state, error ) => setErrorState(state, error.error)),
 );
 
 export function HomeReducer(state: HomeState | undefined, action: Action) {

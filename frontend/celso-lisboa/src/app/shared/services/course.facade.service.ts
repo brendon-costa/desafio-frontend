@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
-import {CourseResourceService} from './course.resource.service';
-import {Rooms} from '../models/courses.model';
 import {SelectListModel} from '../../../../projects/ui/src/lib/form-controls/models/select-list.model';
 import {map} from 'rxjs/operators';
+import {Store} from '@ngrx/store';
+import {HomeState} from '../../pages/home/+state/home.states';
+import {HomeGetAll} from '../../pages/home/+state/actions/home.actions';
+import {selectHomeItems} from '../../pages/home/+state/selectors/home.selectors';
+import {CourseResourceService} from './course.resource.service';
 
 
 @Injectable({
@@ -11,10 +14,15 @@ import {map} from 'rxjs/operators';
 })
 export class CourseFacadeService {
 
-  constructor(private courseResourceService: CourseResourceService) { }
+  constructor(private store: Store<HomeState>, private courseResourceService: CourseResourceService) { }
+
+  // getAllCourses(): Observable<any> {
+  //   return this.courseResourceService.getAllCourses();
+  // }
 
   getAllCourses(): Observable<any> {
-    return this.courseResourceService.getAllCourses();
+    this.store.dispatch(HomeGetAll());
+    return this.store.select(selectHomeItems);
   }
 
   createCourse(courseValue): Observable<any> {
